@@ -95,6 +95,16 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
+	
+	signingConfigs {
+        release {
+            storeFile file('my-release-key.keystore')
+            storePassword 'linh@123'
+            keyAlias 'my-key-alias'
+            keyPassword 'linh@123'
+        }
+    }
+
     }
     splits {
         abi {
@@ -108,6 +118,7 @@ android {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+		signingConfig signingConfigs.release
         }
     }
     // applicationVariants are e.g. debug, release
@@ -126,6 +137,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-vector-icons')
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:23.0.1"
     compile "com.facebook.react:react-native:+"  // From node_modules
